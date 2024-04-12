@@ -1,0 +1,6 @@
+# created by virtualenv automatically
+pyvenv.cfg
+Scripts
+Lib
+src/Pipfile
+src/Pipfile.lock
