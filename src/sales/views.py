@@ -7,9 +7,14 @@ from .forms import SalesSearchForm
 
 def home_view(request):
     form = SalesSearchForm(request.POST or None)
-    hello = 'Hello World from the view!'
+
+    if request.method == 'POST':
+        date_from = request.POST.get('date_from')
+        date_to = request.POST.get('date_to')
+        chart_type = request.POST.get('chart_type')
+        print(date_from, date_to, chart_type)
+
     context = {
-        'hello':hello,
         'form':form,
     }
     return render(request, 'sales/home.html', context)

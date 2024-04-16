@@ -6,8 +6,7 @@ home
 {% endblock title %}
 
 {% block content %}
-{{ hello }}
-<hr>
+
 <form action="" method="POST">
     {% csrf_token %} <!--For security purposes-->
     {{ form|crispy }}
