@@ -46,9 +46,11 @@ INSTALLED_APPS = [
     'sales',
 
     # 3rd party
-    'crispy_forms'
+    'crispy_forms',
+    'crispy_bootstrap4'
 ]
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
