@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Sale
 from .forms import SalesSearchForm
+import pandas as pd
 
 # Create your views here.
 
@@ -13,6 +14,23 @@ def home_view(request):
         date_to = request.POST.get('date_to')
         chart_type = request.POST.get('chart_type')
         print(date_from, date_to, chart_type)
+
+        qs = Sale.objects.filter(created__date=date_from)
+        obj = Sale.objects.get(id=1)
+        # print(qs)
+        # print(obj)
+        # print(qs.values())
+        # print(qs.values_list())
+
+        print('===================================')
+        # Dataframe with headers
+        df1 = pd.DataFrame(qs.values())
+        print(df1)
+        # print('#################')
+
+        # # Dataframe without headers only numbers
+        # df2 = pd.DataFrame(qs.values_list())
+        # print(df2)
 
     context = {
         'form':form,
