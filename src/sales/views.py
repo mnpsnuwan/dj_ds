@@ -9,31 +9,38 @@ import pandas as pd
 def home_view(request):
     form = SalesSearchForm(request.POST or None)
 
+    sales_df = None
+
     if request.method == 'POST':
         date_from = request.POST.get('date_from')
         date_to = request.POST.get('date_to')
         chart_type = request.POST.get('chart_type')
         print(date_from, date_to, chart_type)
 
-        qs = Sale.objects.filter(created__date=date_from)
-        obj = Sale.objects.get(id=1)
-        # print(qs)
-        # print(obj)
-        # print(qs.values())
-        # print(qs.values_list())
+        qs = Sale.objects.filter(created__date__gte=date_from, created__date__lte=date_to)
+        if len(qs) > 0:
+            # obj = Sale.objects.get(id=1)
+            # print(qs)
+            # print(obj)
+            # print(qs.values())
+            # print(qs.values_list())
 
-        print('===================================')
-        # Dataframe with headers
-        df1 = pd.DataFrame(qs.values())
-        print(df1)
-        # print('#################')
+            # print('===================================')
+            # Dataframe with headers
+            sales_df = pd.DataFrame(qs.values())
+            sales_df = sales_df.to_html
+            print(sales_df)
+            # print('#################')
 
-        # # Dataframe without headers only numbers
-        # df2 = pd.DataFrame(qs.values_list())
-        # print(df2)
+            # # Dataframe without headers only numbers
+            # df2 = pd.DataFrame(qs.values_list())
+            # print(df2)
 
+        else:
+            print('No data')
     context = {
         'form':form,
+        'sales_df':sales_df
     }
     return render(request, 'sales/home.html', context)
 
