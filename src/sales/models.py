@@ -17,6 +17,10 @@ class Position(models.Model):
     def save(self, *args, **kwargs):
         self.price = self.product.price * self.quantity
         return super().save(*args, **kwargs)
+    
+    def get_sales_id(self):
+        sale_obj = self.sale_set.first()
+        return sale_obj.id
 
     def __str__(self):
         return f"id: {self.id}, product: {self.product.name}, quantity: {self.quantity}"
