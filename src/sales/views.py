@@ -46,7 +46,8 @@ def home_view(request):
             print(positions_df)
 
             sales_df = sales_df.to_html
-            print(sales_df)
+            positions_df = positions_df.to_html
+            # print(sales_df)
             # print('#################')
 
             # # Dataframe without headers only numbers
@@ -56,8 +57,9 @@ def home_view(request):
         else:
             print('No data')
     context = {
-        'form':form,
-        'sales_df':sales_df
+        'form': form,
+        'sales_df': sales_df,
+        'positions_df': positions_df
     }
     return render(request, 'sales/home.html', context)
 

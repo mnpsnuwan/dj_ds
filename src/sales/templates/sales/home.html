@@ -12,9 +12,11 @@ home
     {{ form|crispy }}
     <button type="submit" class="btn btn-primary mt-3">Search</button>
 </form>
-<br>
+<br/>
 {% if sales_df %}
     {{sales_df|safe}}
+    <br/>
+    {{positions_df|safe}}
 {% else %}
     <h3>No data</h3>
 {% endif %}
