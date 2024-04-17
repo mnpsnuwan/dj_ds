@@ -10,6 +10,7 @@ def home_view(request):
     form = SalesSearchForm(request.POST or None)
 
     sales_df = None
+    positions_df = None
 
     if request.method == 'POST':
         date_from = request.POST.get('date_from')
@@ -17,8 +18,8 @@ def home_view(request):
         chart_type = request.POST.get('chart_type')
         print(date_from, date_to, chart_type)
 
-        qs = Sale.objects.filter(created__date__gte=date_from, created__date__lte=date_to)
-        if len(qs) > 0:
+        sale_qs = Sale.objects.filter(created__date__gte=date_from, created__date__lte=date_to)
+        if len(sale_qs) > 0:
             # obj = Sale.objects.get(id=1)
             # print(qs)
             # print(obj)
@@ -27,7 +28,23 @@ def home_view(request):
 
             # print('===================================')
             # Dataframe with headers
-            sales_df = pd.DataFrame(qs.values())
+            sales_df = pd.DataFrame(sale_qs.values())
+            positions_data = []
+
+            for sale in sale_qs:
+                for pos in sale.get_positions():
+                    obj = {
+                        'position_id': pos.id,
+                        'product': pos.product.name,
+                        'quantity': pos.quantity,
+                        'price' : pos.price,
+                    }
+                    positions_data.append(obj)
+
+            positions_df = pd.DataFrame(positions_data)
+            print('positions_df')
+            print(positions_df)
+
             sales_df = sales_df.to_html
             print(sales_df)
             # print('#################')
