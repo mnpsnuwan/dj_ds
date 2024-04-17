@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from .models import Sale
 from .forms import SalesSearchForm
 import pandas as pd
-from .utils import get_salesman_from_id, get_customer_from_id
+from .utils import get_salesman_from_id, get_customer_from_id, get_chart
 
 # Create your views here.
 
@@ -14,6 +14,7 @@ def home_view(request):
     positions_df = None
     merged_df = None
     df = None
+    chart = None
 
     if request.method == 'POST':
         date_from = request.POST.get('date_from')
@@ -59,6 +60,8 @@ def home_view(request):
             # print('positions_df')
             # print(positions_df)
 
+            chart = get_chart(chart_type, df, labels=df['transaction_id'])
+
             sales_df = sales_df.to_html
             positions_df = positions_df.to_html
             merged_df = merged_df.to_html
@@ -78,6 +81,7 @@ def home_view(request):
         'positions_df': positions_df,
         'merged_df': merged_df,
         'df': df,
+        'chart': chart,
     }
     return render(request, 'sales/home.html', context)
 
