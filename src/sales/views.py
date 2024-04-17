@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView
 from .models import Sale
 from .forms import SalesSearchForm
 import pandas as pd
+from .utils import get_salesman_from_id, get_customer_from_id
 
 # Create your views here.
 
@@ -16,7 +17,7 @@ def home_view(request):
         date_from = request.POST.get('date_from')
         date_to = request.POST.get('date_to')
         chart_type = request.POST.get('chart_type')
-        print(date_from, date_to, chart_type)
+        # print(date_from, date_to, chart_type)
 
         sale_qs = Sale.objects.filter(created__date__gte=date_from, created__date__lte=date_to)
         if len(sale_qs) > 0:
@@ -29,6 +30,13 @@ def home_view(request):
             # print('===================================')
             # Dataframe with headers
             sales_df = pd.DataFrame(sale_qs.values())
+            sales_df['customer_id'] = sales_df['customer_id'].apply(get_customer_from_id)  # Return the customer for customer id
+            sales_df['salesman_id'] = sales_df['salesman_id'].apply(get_salesman_from_id)  # Return the salesman for salesman id
+            sales_df['created'] = sales_df['created'].apply(lambda x: x.strftime('%Y-%m-%d'))  # Return the salesman for salesman id
+
+            # sales_df = sales_df.rename({'customer_id': 'customer', 'salesman_id': 'salesman'}, axis=1)
+            sales_df.rename({'customer_id': 'customer', 'salesman_id': 'salesman'}, axis=1, inplace=True)  # Same as above using inplace=True
+
             positions_data = []
 
             for sale in sale_qs:
@@ -43,8 +51,8 @@ def home_view(request):
                     positions_data.append(obj)
 
             positions_df = pd.DataFrame(positions_data)
-            print('positions_df')
-            print(positions_df)
+            # print('positions_df')
+            # print(positions_df)
 
             sales_df = sales_df.to_html
             positions_df = positions_df.to_html
