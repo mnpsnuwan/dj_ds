@@ -1,5 +1,11 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
+{% load static %}
 {% load crispy_forms_tags %}
+
+{% block scripts %}
+    <script src="{% static 'sales/home.js' %}" defer></script>
+{% endblock scripts %}
 
 {% block title %}
 home
@@ -7,9 +13,29 @@ home
 
 {% block content %}
 
+<!-- Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add report</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="model-body">
+        <div id="alert-box"></div>
+        <form id="report-form">
+          {% csrf_token %}
+          {{report_form|crispy}}
+          <button type="submit" class="btn btn-info mt-2">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <form action="" method="POST">
     {% csrf_token %} <!--For security purposes-->
-    {{ form|crispy }}
+    {{ search_form|crispy }}
     <button type="submit" class="btn btn-primary mt-3">Search</button>
 </form>
 <br/>
@@ -27,8 +53,10 @@ home
     {{df|safe}}
     <br/>
     Chart
-    <img src="data:image/png;base64, {{chart|safe}}">
+    <img src="data:image/png;base64, {{chart|safe}}" id="img">
 {% else %}
     <h3>No data</h3>
 {% endif %}
+    <br/>
+    <button class="btn btn-primary not-visible" id="report-btn" data-bs-toggle="modal" data-bs-target="#reportModal">add report</button>
 {% endblock content %}
