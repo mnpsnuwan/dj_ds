@@ -21,6 +21,7 @@ def home_view(request):
         date_from = request.POST.get('date_from')
         date_to = request.POST.get('date_to')
         chart_type = request.POST.get('chart_type')
+        results_by = request.POST.get('results_by')
         # print(date_from, date_to, chart_type)
 
         sale_qs = Sale.objects.filter(created__date__gte=date_from, created__date__lte=date_to)
@@ -61,7 +62,7 @@ def home_view(request):
             # print('positions_df')
             # print(positions_df)
 
-            chart = get_chart(chart_type, df, labels=df['transaction_id'])
+            chart = get_chart(chart_type, sales_df, results_by)
 
             sales_df = sales_df.to_html
             positions_df = positions_df.to_html
