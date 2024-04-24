@@ -6,9 +6,19 @@
 
 {% block content %}
     Reports
-    <br/>
+    <hr/>
     {% for obj in object_list %}
-        <a href={{obj.get_absolute_url}}>{{obj.name}}</a>
-        <br/>
+        <div class="card mb-3">
+
+            {% if obj.image %}
+                <img src="{{obj.image.url}}" class="card-img-top" alt="{{obj.name}}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{obj.name}}</h5>
+                <p class="card-text">{{obj.remarks|truncatewords:2}}</p>
+                <a href="{{obj.get_absolute_url}}" class="btn btn-primary">Details</a>
+                <a href="" class="btn btn-warning">PDF</a>
+            </div>
+        </div>
     {% endfor %}
 {% endblock content %}
