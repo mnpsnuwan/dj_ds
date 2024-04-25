@@ -2,7 +2,7 @@ const csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value
 
 Dropzone.autoDiscover = false
 const myDropzone = new Dropzone('#my-dropzone', {
-    url: '/upload/',
+    url: '/reports/upload/',
     init: function() {
         this.on('sending', function(file, xhr, formData) {
             console.log('sending...')

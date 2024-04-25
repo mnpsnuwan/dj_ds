@@ -5,12 +5,16 @@ from django.http import JsonResponse
 from .utils import get_report_image
 from .models import Report
 from django.views.generic import ListView, DetailView, TemplateView
+from sales.models import Sale, Position, CSV
 
 # xhtml2pdf in Django
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
+
+import csv
+from django.utils.dateparse import parse_date
 
 # Create your views here.
 
@@ -22,10 +26,27 @@ class ReportDetailView(DetailView):
     model = Report
     template_name = 'reports/detail.html'
 
-class UploadTemplate(TemplateView):
+class UploadTemplateView(TemplateView):
     template_name = 'reports/from_file.html'
 
 def csv_upload_view(request):
+    print('file is being')
+    if request.method == 'POST':
+        csv_file = request.FILES.get('file')
+        obj = CSV.objects.create(file_name=csv_file)
+
+        with open(obj.file_name.path, 'r') as f:
+            reader = csv.reader(f)
+            reader.__next__()
+            for row in reader:
+                print(row, type(row))
+
+                transaction_id = row[1]
+                product = row[2]
+                quantity = int(row[3])
+                customer = row[4]
+                date = row[5]
+
     return HttpResponse()
 
 def is_ajax(request):
