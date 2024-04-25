@@ -1,3 +1,14 @@
 .not-visible {
     display: none;
 }
+
+.dz {
+   border-style: dashed;
+   border-radius: 5px;
+   border-color: #ddd;
+   transition: .5s; 
+}
+
+.dz:hover {
+    border-color: #00eeff;
+ }

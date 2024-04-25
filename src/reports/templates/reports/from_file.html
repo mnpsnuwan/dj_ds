@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block scripts %}
+    <script src="{% static 'reports/upload.js'%}" defer></script>
+{% endblock scripts %}
+
+{% block title %}
+    Upload sales files
+{% endblock title %}
+
+{% block content %}
+    <h5>Upload your sales documents</h5>
+    <br/>
+    <form class="dropzone dz" id="my-dropzone">
+        {% csrf_token %}
+        <div class="fallback">
+            <input type="file" name="file" multiple/>
+        </div>
+    </form>
+{% endblock content %}
