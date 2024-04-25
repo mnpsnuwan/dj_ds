@@ -5,11 +5,24 @@
     <head>
         <meta charset="utf-8"></meta>
 
-        <title></title>
-        <style></style>
+        <title>PDF {{obj.name}}</title>
+        <style>
+            .image {
+                width: 100%;
+                height: auto;
+            }
+        </style>
     </head>
 
     <body>
-        {{hello}}
+        <h1>{{obj.name}}</h1>
+        <hr>
+        <img src="{{obj.image.path}}" class="image"/>
+        <br/>
+        <h3>Remarks</h3>
+        <p>{{obj.remarks}}</p>
+        <hr>
+        <p>Author: <b>{{obj.author.user.username}}</b></p>
+        <p>Created: <b>{{obj.created}}</b></p>
     </body>
 </html>
