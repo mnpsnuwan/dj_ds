@@ -5,8 +5,38 @@
 {% endblock title %}
 
 {% block content %}
-    {{obj.pk}}
-    <br/>
-    {{obj.transaction_id}}
+    <div class="row mt-3 mb-3">
+        <div class="col-3">
+            <img src="{{obj.customer.logo.url}}" class="img-fluid" alt="{{obj.customer.name}}">
+        </div>
+        <div class="col-9">
+            <ul>
+                <li>Transaction id: <b>{{obj.transaction_id}}</b></li>
+                <li>Salesman: <b>{{obj.salesman.user.username}}</b></li>
+            </ul>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Customer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pos in obj.get_positions %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{pos.product.name}}</td>
+                    <td>{{pos.quantity}}</td>
+                    <td>{{pos.price}}</td>
+                    <td>{{pos.get_customer_name}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock content %}
