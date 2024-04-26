@@ -12,6 +12,7 @@
 {% block content %}
     <h5>Upload your sales documents</h5>
     <br/>
+    <div id="alert-box"></div>
     <form class="dropzone dz" id="my-dropzone">
         {% csrf_token %}
         <div class="fallback">
