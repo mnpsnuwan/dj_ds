@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Login
+{% endblock title %}
+
+{% block content %}
+    {% if error_message %}
+        <div class="alert alert-warning" role="alert">
+            {{error_message}}
+        </div>
+    {% endif %}
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <form action="" method="POST" class="p-3 border border-2">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <button type="submit" class="btn btn-primary mt-3">Login</button> 
+                </form>
+            </div>
+
+            <div class="col-6">
+                News
+                <br>
+                Updates
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
