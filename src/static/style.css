@@ -14,8 +14,19 @@
     border-color: #00ddff;
 }
 
+.avatar-sm {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
 .avatar-big {
     height: 200px;
     width: 200px;
     border-radius: 50%;
+}
+
+.logo-sm {
+    height: 40px;
+    width: auto;
 }
