@@ -1,0 +1,9 @@
+Pos,Transaction id,Product,Quantity,Customer,Date
+1,E100,Tv,1,Test Customer,2024-04-15
+2,E100,Laptop,3,Test Customer,2024-04-16
+3,E200,Tv,1,Test Customer,2024-04-17
+4,E300,Smartphone,2,Test Customer,2024-04-17
+5,E300,Laptop,5,Test Customer,2024-04-17
+6,E300,Tv,1,Test Customer,2024-04-18
+7,E400,Tv,2,Test,2024-04-19
+8,E500,Smartwatch,4,Test,2024-04-20
