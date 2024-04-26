@@ -3,12 +3,19 @@
 }
 
 .dz {
-   border-style: dashed;
-   border-radius: 5px;
-   border-color: #ddd;
-   transition: .5s; 
+    border-style: dashed;
+    border-radius: 5px;
+    border-color: #ccc;
+    transition: .5s;
 }
 
 .dz:hover {
-    border-color: #00eeff;
- }
+    background-color: #f5f5f5;
+    border-color: #00ddff;
+}
+
+.avatar-big {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}
